@@ -6,6 +6,8 @@ var vscore = 0 # serve para definir o score (pontuação). É acrescentada a cad
 var x = 1.5 # Velocidade padrão do movimento das colunas e background
 var y = 1.5  # Velocidade vertical do dragão
 
+# fiz com que aumentasse x e o y conforme o tempo
+
 # executa essa função ao carregar o jogo
 func _ready():
 	# oculta o "gameover"
@@ -19,7 +21,7 @@ func _process(delta):
 	if status == 1: # jogando
 		
 		# movimenta o cenário do fundo
-		$background.position.x -= 1*x
+		$background.position.x -= 3*x
 		if ($background.position.x) < -200:
 			$background.position.x = 600
 			
@@ -82,5 +84,5 @@ func _on_columns_body_shape_exited(body_id, body, body_shape, local_shape):
 		$score.set_text(str(vscore)) # atualiza o painel
 
 func _on_Timer_timeout():
-	x += 0.3
-	y += 0.3
+	x += 0.5
+	y += 0.5

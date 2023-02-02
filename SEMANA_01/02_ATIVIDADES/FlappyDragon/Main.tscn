@@ -20,7 +20,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 42.035, 31.6505 )
+extents = Vector2( 31.0669, 14.3383 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 24, 297.4 )
@@ -48,11 +48,10 @@ texture = ExtResource( 1 )
 position = Vector2( 81, 71 )
 scale = Vector2( 0.7, 0.7 )
 frames = SubResource( 1 )
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dragon"]
-position = Vector2( 80.0988, 76.026 )
+position = Vector2( 94, 83 )
 shape = SubResource( 2 )
 
 [node name="columns" type="Area2D" parent="."]
@@ -102,7 +101,7 @@ scale = Vector2( 0.182862, 0.149879 )
 texture = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 
 [connection signal="body_shape_entered" from="columns" to="." method="_on_columns_body_shape_entered"]
 [connection signal="body_shape_exited" from="columns" to="." method="_on_columns_body_shape_exited"]
