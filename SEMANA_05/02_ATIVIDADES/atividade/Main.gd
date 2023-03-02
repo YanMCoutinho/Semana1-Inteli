@@ -30,21 +30,21 @@ func _on_Button2_pressed():
 func _on_Button3_pressed():
 	#Mudando o nome do usuário de acordo com os dados da lista
 	#Se houver algum número ímpar o nome deve adicionar "baldo" ao final
-	
+
 	#Foi tirada de dentro do while porque era sempre recriada com valor 0
 	var cont = 0 
 	#Foi tirada de dentro do while porque era sempre recriada com valor 0
 	var i = 0 
-	 
+
 	# Foi adicionado o < i para o while não ser infinito
 	# e parar depois de percorrer toda a lista
-	while(len(lista) < i):
+	while(len(lista) > i):
 		if(lista[i]%2==1):
 			cont+=1
-		
+
 		# Adicionado para que percorra toda a lista, item a item
 		i += 1
-	
+
 	# Retirado de dentro do while para que apareça apenas 1 baldo
 	if(cont!=0):
 		nome = nome+"baldo"
