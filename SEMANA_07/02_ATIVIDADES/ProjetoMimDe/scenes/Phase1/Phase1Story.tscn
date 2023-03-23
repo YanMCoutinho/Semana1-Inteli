@@ -138,6 +138,7 @@ position = Vector2( 156, 428 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 173 )
 animation = "idle"
+frame = 8
 playing = true
 flip_h = true
 
@@ -149,7 +150,7 @@ position = Vector2( 156, 428 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 173 )
 animation = "howl"
-frame = 2
+frame = 6
 playing = true
 flip_h = true
 
@@ -161,7 +162,7 @@ position = Vector2( 485, 433 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 173 )
 animation = "lie_wolf"
-frame = 11
+frame = 7
 playing = true
 flip_h = true
 
@@ -175,7 +176,7 @@ margin_right = 1036.0
 margin_bottom = 605.0
 mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 180 )
-text = "PULAR HISTÓRIA"
+text = "PULAR HISTORIA"
 flat = true
 
 [connection signal="finished" from="AudioHistory" to="." method="_on_AudioHistory_finished"]

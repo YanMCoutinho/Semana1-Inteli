@@ -17,7 +17,7 @@ onready var phrases: Array = [
 		"audio": phrase2_audio,
 	},
 	{
-		"phrases": "- [color=#FF0D41]Peço as coisas o tempo todo, mas só me dão[/color]\n\n - [color=#E51911]DECEPÇÃO[/color]",
+		"phrases": "- [color=#FF0D41]Peço as coisas o tempo todo, mas só me dão[/color]\n\n - [color=#FF0100]DECEPÇÃO[/color]",
 		"scene": $Scene3,
 		"audio": phrase3_audio,
 	},
