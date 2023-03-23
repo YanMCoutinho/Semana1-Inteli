@@ -1,10 +1,13 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scripts/Oldman/Oldman.gd" type="Script" id=1]
 [ext_resource path="res://assets/Oldman/oldman_walk.png" type="Texture" id=2]
 [ext_resource path="res://assets/Oldman/oldman_attack.png" type="Texture" id=3]
 [ext_resource path="res://assets/Oldman/oldman_dead.png" type="Texture" id=4]
-[ext_resource path="res://assets/Sounds/OldManScream/OldManScared.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/Sounds/OldMan/OldManScared.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/Sounds/OldMan/dead.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/Oldman/cumbuca.png" type="Texture" id=7]
+[ext_resource path="res://assets/Keyboard/computer_key_Enter_T.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 19 )
@@ -36,6 +39,10 @@ region = Rect2( 27, 40, 24, 40 )
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
 region = Rect2( 51, 40, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 2 )
+region = Rect2( 123, 39, 23, 39 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 4 )
@@ -110,6 +117,11 @@ animations = [ {
 "name": "down_walk",
 "speed": 3.0
 }, {
+"frames": [ SubResource( 25 ) ],
+"loop": true,
+"name": "give_cumbuca",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 24 ) ],
 "loop": false,
 "name": "side_dead",
@@ -153,7 +165,7 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "up_dead"
+animation = "give_cumbuca"
 playing = true
 
 [node name="Walk" type="Timer" parent="."]
@@ -168,8 +180,29 @@ one_shot = true
 [node name="Collision" type="CollisionShape2D" parent="DetectPlayer"]
 shape = SubResource( 21 )
 
+[node name="AudioDead" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+volume_db = 24.0
+
 [node name="AudioScream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+volume_db = -10.0
+max_distance = 1000.0
+
+[node name="CumbucaTexture" type="TextureRect" parent="."]
+visible = false
+margin_left = -15.0
+margin_top = -7.0
+margin_right = 623.0
+margin_bottom = 384.0
+rect_scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 7 )
+
+[node name="ComputerKeyEnter" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -27 )
+scale = Vector2( 0.0244308, 0.0244308 )
+texture = ExtResource( 8 )
 
 [connection signal="timeout" from="Walk" to="." method="_on_Walk_timeout"]
 [connection signal="timeout" from="Run" to="." method="_on_Run_timeout"]

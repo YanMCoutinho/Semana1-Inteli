@@ -28,6 +28,7 @@ var count = 0
 func _ready():
 	_change_text()
 
+
 func _change_text():
 	if count < len(phrases):
 		$History.bbcode_text = phrases[count]["phrases"]
@@ -39,12 +40,8 @@ func _change_text():
 		$AudioHistory.playing = true
 		phrases[count]["scene"].show()
 	else:
-		get_tree().change_scene("res://scenes/Phase1/Phase1.tscn")
+		get_tree().change_scene("res://scenes/Phase1/Phase1Tutorial.tscn")
 
-
-func _on_Button_pressed():
-	count += 1
-	_change_text()
 
 func _on_AudioHistory_finished():
 	count += 1

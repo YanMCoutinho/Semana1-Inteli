@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/Sounds/werewolf_howl/sad_wolf.wav" type="AudioStream" id=1]
+[ext_resource path="res://assets/Background/BadEnd.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/Fonts/MetalShred.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://scripts/End.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 52
+font_data = ExtResource( 3 )
+
+[node name="End" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="AudioMusicEnd" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+autoplay = true
+
+[node name="ButtonMenu" type="Button" parent="."]
+margin_left = 781.0
+margin_top = 432.0
+margin_right = 993.0
+margin_bottom = 587.0
+custom_fonts/font = SubResource( 1 )
+text = "MENU"
+flat = true
+
+[node name="BadEnd" type="Sprite" parent="."]
+position = Vector2( 496, 299 )
+texture = ExtResource( 2 )
+
+[connection signal="pressed" from="ButtonMenu" to="." method="_on_ButtonMenu_pressed"]

@@ -7,15 +7,18 @@ var moving_v = true
 var screaming = false
 var howling = false
 var dead = false
+var giving_cumbuca = false
 var v_direction = 0
 var h_direction = 0
 
-signal died()
+signal died(value, oldman)
+signal give_cumbuca(oldman)
 
 var rng = RandomNumberGenerator.new()
 
 onready var sprite = $AnimatedSprite
-onready var audio = $AudioScream
+onready var audio_scream = $AudioScream
+onready var audio_dead = $AudioDead
 
 const is_a_walking_anim: Dictionary = {
 	"side_walk": true,
@@ -29,6 +32,8 @@ const is_a_walking_anim: Dictionary = {
 	"side_dead": false,
 	"up_dead": false,
 	"down_dead": false,
+	
+	"give_cumbuca": false,
 }
 
 const scream_anims: Dictionary = {
@@ -39,6 +44,8 @@ const scream_anims: Dictionary = {
 	"side_dead": "side_scream",
 	"up_dead": "up_scream",
 	"down_dead": "down_scream",
+	
+	"give_cumbuca": "down_dead",
 }
 
 const dead_anims: Dictionary = {
@@ -49,6 +56,8 @@ const dead_anims: Dictionary = {
 	"side_scream": "side_dead",
 	"up_scream": "up_dead",
 	"down_scream": "down_dead",
+	
+	"give_cumbuca": "down_dead",
 }
 
 var anims: Dictionary = {
@@ -64,7 +73,7 @@ var anims: Dictionary = {
 
 func _ready():
 	rng.seed = hash(rand_seed(randi()))
-	
+
 
 func _physics_process(_delta):
 	var movement = Vector2(h_direction, v_direction).normalized()
@@ -82,8 +91,8 @@ func _physics_process(_delta):
 				self.modulate.a -= 0.001
 		else:
 			self.queue_free()
-			
-	if not screaming and not dead:
+
+	if not screaming and not dead and not giving_cumbuca:
 		change_anim()
 
 	var __ = move_and_slide(movement * velocity)
@@ -125,10 +134,13 @@ func change_last_direction():
 
 func die(): 
 	if not dead:
-		emit_signal("died", -1)
+		emit_signal("died", -1, self)
 		$Walk.stop()
 		$Run.stop()
+		$CumbucaTexture.hide()
+		$ComputerKeyEnter.hide()
 		dead = true
+		audio_dead.play(19)
 		h_direction = 0
 		v_direction = 0
 		change_idle_anim(dead_anims[sprite.animation], 0)
@@ -137,12 +149,16 @@ func die():
 func scare(thing_position, update_velocity): 
 	if is_a_walking_anim[sprite.animation]:
 		var anim = scream_anims[sprite.animation]
+		var cumbuca_chances = int(rng.randi_range(0, 100))
 		sprite.playing = true
 		sprite.animation = anim
-		audio.play(0.5)
-		_run_away(thing_position, update_velocity)
 		
-		screaming = true
+		if cumbuca_chances >= 90:
+			_give_cumbuca()
+		else:
+			audio_scream.play(0.5)
+			_run_away(thing_position, update_velocity)
+			screaming = true
 
 
 func _run_away(thing_position, update_velocity):
@@ -155,6 +171,18 @@ func _run_away(thing_position, update_velocity):
 
 	$Walk.stop()
 	$Run.start()
+
+
+func _give_cumbuca(): 
+	sprite.animation = "give_cumbuca"
+	giving_cumbuca = true
+	$Walk.stop()
+	$Run.stop()
+	$CumbucaTexture.show()
+	$ComputerKeyEnter.show()
+	h_direction = 0
+	v_direction = 0
+	emit_signal("give_cumbuca", self)
 
 
 func _on_AnimatedSprite_animation_finished():
