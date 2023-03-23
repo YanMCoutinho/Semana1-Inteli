@@ -1,10 +1,13 @@
 extends Node2D
 
+#Carrega os áudios da narração da história
 var phrase1_audio = preload("res://assets/Sounds/History/Scene1.wav")
 var phrase2_audio = preload("res://assets/Sounds/History/Scene2.wav")
 var phrase3_audio = preload("res://assets/Sounds/History/Scene3.wav")
 
 onready var history = $History
+
+# Seta todas as falas, audios e animações que devem aparecer
 onready var phrases: Array = [
 	{
 		"phrases": "[color=#B1C8F1]Toda noite ele passa na praça pedindo farinha na cumbuca\nPede pede pede que só a p@@@@. enche o saco esse bicho pidão... \n\nEis aqui o relato[/color]",
@@ -22,13 +25,14 @@ onready var phrases: Array = [
 		"audio": phrase3_audio,
 	},
 ]
-
+#Contador para controlar em qual fala está
 var count = 0
 
 func _ready():
 	_change_text()
 
-
+#Substitui a fala conforme o número do contador. Se o contador for maior ou igual a quantidade de falas
+# Passa para a próxima cena (Tutorial)
 func _change_text():
 	if count < len(phrases):
 		$History.bbcode_text = phrases[count]["phrases"]
@@ -42,11 +46,11 @@ func _change_text():
 	else:
 		get_tree().change_scene("res://scenes/Phase1/Phase1Tutorial.tscn")
 
-
+#Quando o áudio acaba, passa para a próxima fala
 func _on_AudioHistory_finished():
 	count += 1
 	_change_text()
 
-
+#Vai para o tutorial
 func _on_skipButton_pressed():
 	get_tree().change_scene("res://scenes/Phase1/Phase1Tutorial.tscn")

@@ -138,7 +138,7 @@ position = Vector2( 156, 428 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 173 )
 animation = "idle"
-frame = 8
+frame = 1
 playing = true
 flip_h = true
 
@@ -150,7 +150,7 @@ position = Vector2( 156, 428 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 173 )
 animation = "howl"
-frame = 6
+frame = 1
 playing = true
 flip_h = true
 
@@ -162,7 +162,6 @@ position = Vector2( 485, 433 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 173 )
 animation = "lie_wolf"
-frame = 7
 playing = true
 flip_h = true
 

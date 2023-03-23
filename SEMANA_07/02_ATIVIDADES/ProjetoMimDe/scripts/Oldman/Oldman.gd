@@ -1,25 +1,31 @@
 extends KinematicBody2D
 
+# Variaveis de estado
 var velocity = 150
 var last_v_movement_direction = 1
 var last_h_movement_direction = 1
+var v_direction = 0
+var h_direction = 0
+
+# Variaveis de controle de estado
 var moving_v = true
 var screaming = false
 var howling = false
 var dead = false
 var giving_cumbuca = false
-var v_direction = 0
-var h_direction = 0
 
+#Inicializa os sinais
 signal died(value, oldman)
 signal give_cumbuca(oldman)
 
+#Inicializa o randomizador
 var rng = RandomNumberGenerator.new()
 
 onready var sprite = $AnimatedSprite
 onready var audio_scream = $AudioScream
 onready var audio_dead = $AudioDead
 
+#Dicionarios usados para controlar melhor as animações
 const is_a_walking_anim: Dictionary = {
 	"side_walk": true,
 	"up_walk": true,
@@ -71,18 +77,21 @@ var anims: Dictionary = {
 	},
 }
 
+#Faz com que o randomizador seja único para cada instância
 func _ready():
 	rng.seed = hash(rand_seed(randi()))
 
 
 func _physics_process(_delta):
 	var movement = Vector2(h_direction, v_direction).normalized()
-
+	
+	#Faz ele acelerar ou desacelerar até a velocidade padrão
 	if velocity > 100:
 		velocity -= 1
 	elif velocity < 100:
 		velocity += 1
 	
+	#Se ele estiver morto, ele vai desaparecendo até seu node ser deletado
 	if dead:
 		if self.modulate.a > 0:
 			if self.modulate.a < 0.75:
@@ -92,18 +101,20 @@ func _physics_process(_delta):
 		else:
 			self.queue_free()
 
+	#Se ele não está morto, gritando e não está rendido. Ele troca de animação
 	if not screaming and not dead and not giving_cumbuca:
 		change_anim()
 
+	#Movimenta o personagem
 	var __ = move_and_slide(movement * velocity)
 
-
+#Função para fazer com que o animated sprite fique parado
 func change_idle_anim(anim, frame):
 	sprite.animation = anim
 	sprite.playing = false
 	sprite.frame = frame
 
-
+#Muda a animação conforme a direção andada ou parada
 func change_anim():			
 	if v_direction != 0:
 		sprite.animation = anims["v_direction"][str(last_v_movement_direction)]
@@ -121,7 +132,7 @@ func change_anim():
 			else:
 				change_idle_anim(anims["h_direction"][str(last_h_movement_direction)], 1)
 
-
+#Atualiza as ultimas direções andadas
 func change_last_direction():
 	if v_direction != 0:
 		moving_v = true
@@ -131,7 +142,7 @@ func change_last_direction():
 		moving_v = false
 		last_h_movement_direction = h_direction	
 
-
+#Mata o npc, fazendo ele enviar o sinal e parar de se mexer
 func die(): 
 	if not dead:
 		emit_signal("died", -1, self)
@@ -145,7 +156,10 @@ func die():
 		v_direction = 0
 		change_idle_anim(dead_anims[sprite.animation], 0)
 
-
+#Assusta o NPC, fazendo ele ocorrer para os lados opostos do que aquilo que a assustou
+#Ele pode correr mais rápido ou mais devagar. Caso o lobo uive, ele correrá devagar
+#Caso seja ele que tenha visto o lobo, ele correrá mais rápido
+#Se ele correr mais devagar, roda a chance dele se render
 func scare(thing_position, update_velocity): 
 	if is_a_walking_anim[sprite.animation]:
 		var anim = scream_anims[sprite.animation]
@@ -160,7 +174,7 @@ func scare(thing_position, update_velocity):
 			_run_away(thing_position, update_velocity)
 			screaming = true
 
-
+# Faz ele correr para o lado oposto de algo com uma variação de velocidade
 func _run_away(thing_position, update_velocity):
 	v_direction = int(clamp((self.position.y - thing_position.y), -1, 1))
 	h_direction = int(clamp((self.position.x - thing_position.x), -1, 1))
@@ -172,7 +186,7 @@ func _run_away(thing_position, update_velocity):
 	$Walk.stop()
 	$Run.start()
 
-
+# Faz ele se render e ficar parado
 func _give_cumbuca(): 
 	sprite.animation = "give_cumbuca"
 	giving_cumbuca = true
@@ -184,24 +198,24 @@ func _give_cumbuca():
 	v_direction = 0
 	emit_signal("give_cumbuca", self)
 
-
+#Controlas as mudanças de estado conforme o fim das animações
 func _on_AnimatedSprite_animation_finished():
 	if not is_a_walking_anim[sprite.animation]:
 		screaming = false
 
-
+# Faz ele andar de tempos em tempos
 func _on_Walk_timeout():
 	h_direction = int(rng.randi_range(-1, 1))
 	v_direction = int(rng.randi_range(-1, 1))
 	
 	change_last_direction()
 
-
+# Faz ele parar de correr após o timer tocar
 func _on_Run_timeout():
 	screaming = false
 	$Walk.start()
 
-
+#Caso o Player entre na sua área 2D, ele irá correr do Player
 func _on_DetectPlayer_body_entered(body):
 	if body.is_in_group('player'):
 		if not screaming:

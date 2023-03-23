@@ -1,20 +1,28 @@
 extends KinematicBody2D
 
+# Variáveis de Estado
 var velocity = 200
 var last_v_movement_direction = 1
 var last_h_movement_direction = 1
-var moving_v = true
-var attacking = false
-var howling = false
 var v_direction = 0
 var h_direction = 0
 
+#Variaveis de controle de estado
+var moving_v = true
+var attacking = false
+var howling = false
+
+#Carrega o ataque que será instanciado
 var attack_preload = load("res://scenes/Player/Attack.tscn")
 
+#Guarda os inimigos que estõo dentro da área do uivo
 var enemies = []
 
 onready var sprite = $AnimatedSprite
 
+#Dicionários para trabalhar com a mudança de estado mais facilmente
+#A ideia é saber qual animação cada ação tem dependendo da posição dela
+#E E verificar se x animação é x ação
 const is_a_walking_anim: Dictionary = {
 	"side_attack": false,
 	"up_attack": false,
@@ -113,7 +121,7 @@ const anims: Dictionary = {
 	},
 }
 
-
+#Computa os inputs para fazer a movimentação
 func _input(_event):
 	var down_press = int(Input.is_action_pressed("ui_down"))
 	var up_press = int(Input.is_action_pressed("ui_up"))
@@ -131,7 +139,7 @@ func _input(_event):
 		moving_v = false
 		last_h_movement_direction = h_direction	
 
-
+#Faz a movimentação do personagem e permite que ele ataque ou uive caso já não esteja fazendo isso
 func _physics_process(_delta):
 	var movement = Vector2(h_direction, v_direction).normalized()
 
@@ -146,13 +154,13 @@ func _physics_process(_delta):
 	movement.normalized()
 	var __ = move_and_slide(movement * velocity)
 
-
+#Pega um frame do AnimatedSprite e pausa nele para fazer um sprite parado
 func change_idle_anim(anim, frame):
 	sprite.animation = anim
 	sprite.playing = false
 	sprite.frame = frame
 
-
+#Muda de animação dependendo da direção que está sendo andada
 func change_anim():			
 	if v_direction != 0:
 		sprite.animation = anims["v_direction"][last_v_movement_direction]
@@ -170,7 +178,7 @@ func change_anim():
 			elif Input.get_action_strength("move_h") == 0:
 				change_idle_anim(anims["h_direction"][last_h_movement_direction], 1)
 
-
+# Instancia a cena de ataque na direção em que o lobo está olhando e roda a animação de ataque
 func attack():
 	if is_a_walking_anim[sprite.animation]:
 		var new_pos = 0
@@ -198,7 +206,7 @@ func attack():
 		
 		self.delay_add_child(attack_scene, 0.37)
 
-
+#Faz com que o lobo uive e dê lentidão aos inimigos assustados
 func howl(): 
 	sprite.playing = true
 	if is_a_walking_anim[sprite.animation]:
@@ -209,24 +217,24 @@ func howl():
 		for enemy in enemies:
 			enemy.scare(self.position, -99)
 
-
+#Adiciona um node filho com um tempo de delay dado
 func delay_add_child(child, time):
 	yield(get_tree().create_timer(time), "timeout")
 	self.add_child(child)
 
-
+#Controla os estados de acordo com os fins das animações
 func _on_AnimatedSprite_animation_finished():
 	if is_an_attack_anim[sprite.animation]:
 		attacking = false
 	if is_a_howling_anim[sprite.animation]:
 		howling = false
 
-
+#Caso um inimigo entre na área 2D, é adicionado a lista de inimigo
 func _on_Area2D_body_entered(body):
 	if body.is_in_group('enemy'):
 		enemies.append(body)
 
-
+#Caso um inimigo saia da área 2D, é removido da lista de inimigo
 func _on_Area2D_body_exited(body):
 	if body.is_in_group('enemy'):if body.is_in_group('enemy'):
 		enemies.remove(enemies.find(body))
