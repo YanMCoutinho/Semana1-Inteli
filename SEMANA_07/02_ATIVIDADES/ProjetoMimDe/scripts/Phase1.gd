@@ -22,7 +22,10 @@ func _process(_delta):
 			var distance = 50
 			if (old_pos.x + distance) > player_pos.x and (old_pos.x - distance) < player_pos.x:
 				if (old_pos.y + distance) > player_pos.y and (old_pos.y - distance) < player_pos.y:
-					get_tree().change_scene("res://scenes/GoodEnd.tscn")
+					if qtd_enemies >= 22:
+						get_tree().change_scene("res://scenes/GoodEnd.tscn")
+					else:
+						get_tree().change_scene("res://scenes/BadEnd.tscn")
 
 
 func _count_enemies(value, oldman):

@@ -46,3 +46,7 @@ func _change_text():
 func _on_AudioHistory_finished():
 	count += 1
 	_change_text()
+
+
+func _on_skipButton_pressed():
+	get_tree().change_scene("res://scenes/Phase1/Phase1Tutorial.tscn")

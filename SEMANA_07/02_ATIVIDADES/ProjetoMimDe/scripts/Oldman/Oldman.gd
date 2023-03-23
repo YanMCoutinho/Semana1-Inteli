@@ -153,7 +153,7 @@ func scare(thing_position, update_velocity):
 		sprite.playing = true
 		sprite.animation = anim
 		
-		if cumbuca_chances >= 90:
+		if cumbuca_chances >= 97 and update_velocity < 0:
 			_give_cumbuca()
 		else:
 			audio_scream.play(0.5)
