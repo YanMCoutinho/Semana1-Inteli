@@ -1,0 +1,202 @@
+[gd_scene load_steps=35 format=2]
+
+[ext_resource path="res://assets/Player/werewolf_topdown/werewolf_walk_top.png" type="Texture" id=1]
+[ext_resource path="res://assets/Player/werewolf_topdown/werewolf_punchs.png" type="Texture" id=2]
+[ext_resource path="res://assets/Player/werewolf_topdown/werewolf_walk.png" type="Texture" id=3]
+[ext_resource path="res://assets/Attack/light.jpg" type="Texture" id=4]
+[ext_resource path="res://scripts/Player/Player.gd" type="Script" id=5]
+[ext_resource path="res://assets/Sounds/werewolf_howl/werewolf_howl.wav" type="AudioStream" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20, 20 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 174, 122, 58, 62 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 116, 122, 58, 62 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 128, 55, 56 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 2 )
+region = Rect2( 55, 128, 55, 56 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 3 )
+region = Rect2( 165, 52, 55, 52 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 55, 52, 55, 52 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 54, 47, 51 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 110, 52, 55, 52 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 2 )
+region = Rect2( 61, 192, 61, 56 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 2 )
+region = Rect2( 130, 186, 57, 62 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 2 )
+region = Rect2( 191, 186, 55, 62 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 192, 61, 56 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 3 )
+region = Rect2( 160, 110, 51, 47 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 55, 104, 55, 52 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 104, 55, 52 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 110, 104, 55, 52 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 2 )
+region = Rect2( 183, 317, 61, 60 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 2 )
+region = Rect2( 122, 317, 61, 60 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 186, 0, 58, 56 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 124, 0, 58, 56 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 315, 57, 60 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 1 )
+region = Rect2( 167, 0, 47, 47 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 53, 0, 53, 47 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 53, 47 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 106, 0, 53, 47 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"loop": false,
+"name": "down_attack",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 28 ), SubResource( 28 ), SubResource( 28 ) ],
+"loop": false,
+"name": "down_howl",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 9 ), SubResource( 11 ) ],
+"loop": true,
+"name": "down_walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
+"loop": false,
+"name": "side_attack",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 29 ), SubResource( 29 ), SubResource( 29 ) ],
+"loop": false,
+"name": "side_howl",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 12 ), SubResource( 14 ) ],
+"loop": true,
+"name": "side_walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": false,
+"name": "up_attack",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 30 ), SubResource( 30 ), SubResource( 30 ) ],
+"loop": false,
+"name": "up_howl",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 15 ), SubResource( 17 ) ],
+"loop": true,
+"name": "up_walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=31]
+radius = 137.004
+
+[node name="Player" type="KinematicBody2D" groups=["player"]]
+z_index = 2
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 5 )
+animation = "side_walk"
+playing = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+limit_left = -611
+limit_top = -482
+limit_right = 578
+limit_bottom = 338
+
+[node name="DetectEnemies" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="DetectEnemies"]
+shape = SubResource( 31 )
+
+[node name="Light2D" type="Light2D" parent="."]
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 4 )
+texture_scale = 0.95
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 0.772549 )
+
+[node name="AudioHowl" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="body_entered" from="DetectEnemies" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="DetectEnemies" to="." method="_on_Area2D_body_exited"]

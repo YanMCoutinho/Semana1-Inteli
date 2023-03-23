@@ -2,8 +2,9 @@ extends Node2D
 
 # Essa variável foi declarada, pois é chamada ao longo do código
 var nome = ""
-var teste = false
-var valor = 0
+# A variável teste e valor não é utilizada e portanto será comentada.
+#var teste = false 
+#var valor = 0
 # Foi retirado o acento na declaração e chamada dessa variável
 # para que funcionasse
 var numero = 0 
@@ -15,6 +16,8 @@ func _on_Button_pressed():
 	#Foi adicionado o cifrão monetário ao LineEdit para que seja chamada
 	#A instância do objeto
 	numero = int($LineEdit.text)
+	#Adição do texto do LineEdit na var nome
+	nome = $LineEdit.text.split(" ")[0]
 	$LineEdit.text = nome
 
 
@@ -38,15 +41,14 @@ func _on_Button3_pressed():
 
 	# Foi adicionado o < i para o while não ser infinito
 	# e parar depois de percorrer toda a lista
-	while(len(lista) > i):
-		if(lista[i]%2==1):
+	while len(lista) > i:
+		if lista[i]%2 == 1:
 			cont+=1
-
 		# Adicionado para que percorra toda a lista, item a item
 		i += 1
 
 	# Retirado de dentro do while para que apareça apenas 1 baldo
-	if(cont!=0):
-		nome = nome+"baldo"
+	if cont != 0:
+		nome += "baldo"
 
 	$Label2.text = nome

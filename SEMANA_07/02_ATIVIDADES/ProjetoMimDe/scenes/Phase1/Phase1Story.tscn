@@ -1,0 +1,181 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://assets/Fonts/broken_knight.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/Phase1/Phase1Story.gd" type="Script" id=2]
+[ext_resource path="res://assets/Player/werewolf_2d/idle_werewolf.png" type="Texture" id=3]
+[ext_resource path="res://assets/Player/werewolf_2d/werewolf_scream.png" type="Texture" id=4]
+[ext_resource path="res://assets/Fonts/MetalShred.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/Player/werewolf_2d/lie_wolf-removebg-preview.png" type="Texture" id=6]
+[ext_resource path="res://assets/Sounds/History/Scene1.wav" type="AudioStream" id=7]
+
+[sub_resource type="DynamicFont" id=179]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 42
+extra_spacing_top = 18
+extra_spacing_bottom = 7
+font_data = ExtResource( 1 )
+
+[sub_resource type="AtlasTexture" id=169]
+atlas = ExtResource( 4 )
+region = Rect2( 3, 0, 68, 70 )
+
+[sub_resource type="AtlasTexture" id=170]
+atlas = ExtResource( 4 )
+region = Rect2( 113, 2, 72, 68 )
+
+[sub_resource type="AtlasTexture" id=171]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 83, 74, 67 )
+
+[sub_resource type="AtlasTexture" id=172]
+atlas = ExtResource( 4 )
+region = Rect2( 91, 80, 90, 70 )
+
+[sub_resource type="AtlasTexture" id=160]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 85, 74 )
+
+[sub_resource type="AtlasTexture" id=161]
+atlas = ExtResource( 3 )
+region = Rect2( 85, 0, 85, 74 )
+
+[sub_resource type="AtlasTexture" id=162]
+atlas = ExtResource( 3 )
+region = Rect2( 170, 0, 85, 74 )
+
+[sub_resource type="AtlasTexture" id=163]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 84, 85, 74 )
+
+[sub_resource type="AtlasTexture" id=164]
+atlas = ExtResource( 3 )
+region = Rect2( 85, 84, 85, 74 )
+
+[sub_resource type="AtlasTexture" id=165]
+atlas = ExtResource( 3 )
+region = Rect2( 170, 84, 85, 74 )
+
+[sub_resource type="AtlasTexture" id=166]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 173, 85, 71 )
+
+[sub_resource type="AtlasTexture" id=167]
+atlas = ExtResource( 3 )
+region = Rect2( 85, 173, 85, 71 )
+
+[sub_resource type="AtlasTexture" id=168]
+atlas = ExtResource( 3 )
+region = Rect2( 170, 173, 85, 71 )
+
+[sub_resource type="AtlasTexture" id=175]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 65, 60 )
+
+[sub_resource type="AtlasTexture" id=176]
+atlas = ExtResource( 6 )
+region = Rect2( 99, 3, 81, 49 )
+
+[sub_resource type="AtlasTexture" id=177]
+atlas = ExtResource( 6 )
+region = Rect2( 2, 87, 90, 51 )
+
+[sub_resource type="AtlasTexture" id=178]
+atlas = ExtResource( 6 )
+region = Rect2( 126, 99, 93, 43 )
+
+[sub_resource type="SpriteFrames" id=173]
+animations = [ {
+"frames": [ SubResource( 169 ), SubResource( 170 ), SubResource( 171 ), SubResource( 172 ), SubResource( 172 ), SubResource( 172 ), SubResource( 172 ) ],
+"loop": true,
+"name": "howl",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 160 ), SubResource( 161 ), SubResource( 162 ), SubResource( 163 ), SubResource( 164 ), SubResource( 165 ), SubResource( 166 ), SubResource( 167 ), SubResource( 168 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 175 ), SubResource( 176 ), SubResource( 177 ), SubResource( 178 ), SubResource( 178 ), SubResource( 178 ), SubResource( 178 ), SubResource( 178 ), SubResource( 178 ), SubResource( 178 ), SubResource( 178 ), SubResource( 178 ) ],
+"loop": true,
+"name": "lie_wolf",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=174]
+font_data = ExtResource( 5 )
+
+[node name="Phase1Story" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Title" type="Label" parent="."]
+margin_left = 303.0
+margin_top = 2.0
+margin_right = 686.0
+margin_bottom = 79.0
+custom_fonts/font = SubResource( 179 )
+text = "A HISTÓRIA DO LOBO PIDÃO"
+align = 1
+valign = 1
+
+[node name="History" type="RichTextLabel" parent="."]
+margin_left = 67.0
+margin_top = 91.0
+margin_right = 967.0
+margin_bottom = 321.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+
+[node name="Scene1" type="Node2D" parent="."]
+visible = false
+
+[node name="werewolf" type="AnimatedSprite" parent="Scene1"]
+position = Vector2( 156, 428 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 173 )
+animation = "idle"
+frame = 3
+playing = true
+flip_h = true
+
+[node name="Scene2" type="Node2D" parent="."]
+visible = false
+
+[node name="werewolf" type="AnimatedSprite" parent="Scene2"]
+position = Vector2( 156, 428 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 173 )
+animation = "howl"
+frame = 1
+playing = true
+flip_h = true
+
+[node name="Scene3" type="Node2D" parent="."]
+visible = false
+
+[node name="werewolf" type="AnimatedSprite" parent="Scene3"]
+position = Vector2( 485, 433 )
+scale = Vector2( 3, 3 )
+frames = SubResource( 173 )
+animation = "lie_wolf"
+frame = 11
+playing = true
+flip_h = true
+
+[node name="Button" type="Button" parent="."]
+margin_left = 238.0
+margin_top = 494.0
+margin_right = 738.0
+margin_bottom = 594.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 174 )
+text = "CLIQUE AQUI PARA CONTINUAR"
+flat = true
+
+[node name="AudioHistory" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="finished" from="AudioHistory" to="." method="_on_AudioHistory_finished"]

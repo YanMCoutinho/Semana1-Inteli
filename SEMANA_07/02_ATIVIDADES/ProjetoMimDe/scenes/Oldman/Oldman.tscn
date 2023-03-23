@@ -1,0 +1,176 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://scripts/Oldman/Oldman.gd" type="Script" id=1]
+[ext_resource path="res://assets/Oldman/oldman_walk.png" type="Texture" id=2]
+[ext_resource path="res://assets/Oldman/oldman_attack.png" type="Texture" id=3]
+[ext_resource path="res://assets/Oldman/oldman_dead.png" type="Texture" id=4]
+[ext_resource path="res://assets/Sounds/OldManScream/OldManScared.wav" type="AudioStream" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 19 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 4 )
+region = Rect2( 4, 0, 35, 27 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 168, 0, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 168, 40, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 3, 40, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 27, 40, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 51, 40, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 4 )
+region = Rect2( 2, 80, 38, 27 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 168, 120, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 120, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 168, 160, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 3, 120, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 27, 120, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 51, 120, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 156, 42, 31 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 200, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 72, 200, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 200, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 3, 198, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 27, 198, 24, 40 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 51, 198, 24, 40 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 23 ) ],
+"loop": false,
+"name": "down_dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "down_scream",
+"speed": 7.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "down_walk",
+"speed": 3.0
+}, {
+"frames": [ SubResource( 24 ) ],
+"loop": false,
+"name": "side_dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "side_scream",
+"speed": 7.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "side_walk",
+"speed": 3.0
+}, {
+"frames": [ SubResource( 22 ) ],
+"loop": false,
+"name": "up_dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "up_scream",
+"speed": 7.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "up_walk",
+"speed": 3.0
+} ]
+
+[sub_resource type="CircleShape2D" id=21]
+radius = 62.1289
+
+[node name="Oldman" type="KinematicBody2D" groups=["enemy"]]
+script = ExtResource( 1 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+animation = "up_dead"
+playing = true
+
+[node name="Walk" type="Timer" parent="."]
+autostart = true
+
+[node name="Run" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="DetectPlayer" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="DetectPlayer"]
+shape = SubResource( 21 )
+
+[node name="AudioScream" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[connection signal="timeout" from="Walk" to="." method="_on_Walk_timeout"]
+[connection signal="timeout" from="Run" to="." method="_on_Run_timeout"]
+[connection signal="body_entered" from="DetectPlayer" to="." method="_on_DetectPlayer_body_entered"]
