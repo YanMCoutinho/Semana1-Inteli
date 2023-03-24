@@ -12,7 +12,11 @@ config_version=4
 
 config/name="Lobo Pidão"
 run/main_scene="res://scenes/Menu.tscn"
+<<<<<<< HEAD
 boot_splash/image="res://assets/icon/icon.png"
+=======
+boot_splash/image="res://assets/Player/werewolf_2d/werewolf_scream.png"
+>>>>>>> e0f3add4f69186d6a73bcd89b3c31bffd3150c2a
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.png"
